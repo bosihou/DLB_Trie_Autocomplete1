@@ -22,7 +22,7 @@ public class BoggleSolver
 
 	public BoggleSolver() throws IOException{
 		//Read the dictionary
-		Scanner fileScan = new Scanner(new FileInputStream("dict8.txt"));
+		Scanner fileScan = new Scanner(new FileInputStream("src/dict8.txt"));
 		String st;
 		D = new MyDictionary();
 
@@ -34,7 +34,7 @@ public class BoggleSolver
 		fileScan.close();
 
 		// Parse input file of the Boggle board to create 2-d grid of characters
-        //
+
 		Scanner inScan = new Scanner(System.in);
 		Scanner fReader;
 		File fName;
@@ -68,6 +68,7 @@ public class BoggleSolver
 			for (int j = 0; j < rowString.length(); j++)
 			{
 				theBoard[i][j] = Character.toLowerCase(rowString.charAt(j));
+				//System.out.println(theBoard[i][j] = Character.toLowerCase(rowString.charAt(j)));
 			}
 		}
 		fReader.close();
@@ -107,10 +108,13 @@ public class BoggleSolver
 
 	private void solve(int row, int col, /*for debugging*/ int depth){
 		//for debugging
-		// for(int i=0; i<depth; i++){
-		// 	System.out.print(" ");
-		// }
-		// System.out.println(row + ", " + col + " " + currentSolution.toString());
+
+//		 for(int i=0; i<depth; i++){
+//		 	System.out.print(" ");
+//		 }
+//		 System.out.println(row + ", " + col + " " + currentSolution.toString());
+
+
 		for(int direction=0; direction<8; direction++){
 			if(isValid(row, col, direction)){
 				currentSolution.append(nextChar(row, col, direction));
@@ -131,6 +135,10 @@ public class BoggleSolver
 
 				if(res == 3){ //word and prefix
 					//TODO: Write the code for the word and prefix case
+					if(currentSolution.length() >= 3){
+						System.out.println(currentSolution.toString());
+					}
+					solve(nextCoords.row, nextCoords.col, depth + 1);
 				}
 
 				currentSolution.deleteCharAt(currentSolution.length()-1);
@@ -145,8 +153,33 @@ public class BoggleSolver
 	private boolean isValid(int row, int col, int direction){
 		Coordinates coords = nextCoordinates(row, col, direction);
 
+
+
 		//TODO: Write the code to check whether already used / at an edge of the board
+		//char letter = theBoard[coords.row][coords.col];
+		boolean atTheEdge = coords.row == -1 | coords.row == 4 | coords.col == -1 | coords.col == 4;
+		if (atTheEdge) {
+			return false;
+		} else {
+			char letter = theBoard[coords.row][coords.col];
+			if (Character.isUpperCase(letter)) {
+				return false;
+
+			}
+		}
+		return true;
+
 	}
+
+
+
+
+
+
+
+
+
+
 
 	private char nextChar(int row, int col, int direction){
 		Coordinates coords = nextCoordinates(row, col, direction);
