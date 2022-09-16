@@ -22,7 +22,7 @@ public class BoggleSolver
 
 	public BoggleSolver() throws IOException{
 		//Read the dictionary
-		Scanner fileScan = new Scanner(new FileInputStream("src/dict8.txt"));
+		Scanner fileScan = new Scanner(new FileInputStream("dict8.txt"));
 		String st;
 		D = new MyDictionary();
 
