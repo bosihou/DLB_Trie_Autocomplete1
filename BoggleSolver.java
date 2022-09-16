@@ -34,7 +34,7 @@ public class BoggleSolver
 		fileScan.close();
 
 		// Parse input file of the Boggle board to create 2-d grid of characters
-
+        //
 		Scanner inScan = new Scanner(System.in);
 		Scanner fReader;
 		File fName;
